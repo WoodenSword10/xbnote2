@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}模板页{% endblock %}</title>
+    <style>
+        div {
+            width:100%;
+            height: 100%;
+            border: 2px darkseagreen;
+        }
+        #head{
+            height: 50px;
+            text-align: center;
+            background-color: antiquewhite;
+        }
+        #middle{
+            height: 580px;
+            text-align: center;
+            background-color: cornflowerblue;
+        }
+        #foot{
+            height: 50px;
+            text-align: center;
+            background-color: aquamarine;
+        }
+    </style>
+    {% block mystyle %}{% endblock %}
+    {% block mycss %}{% endblock %}
+</head>
+<body>
+    <div id="head">
+        {% block head %}
+        {% endblock %}
+    </div>
+    <div id="middle">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <div id="foot">
+        {% block foot %}
+            联系方式：xxxxx@163.com
+            <br>小白祝您生活愉快
+        {% endblock %}
+    </div>
+</body>
+</html>

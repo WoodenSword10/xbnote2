@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}个人中心{% endblock %}
+{% block head %}
+    <p align="right">
+        <a href="/note/center">我的笔记</a>
+        <a href="/index/">首页</a>
+        <img src="/media/{{ user.img }}" width=50px, height=50px>
+        {{ user.username }}
+        <br>
+        <a href="/users/quit">退出</a>
+    </p>
+{% endblock %}
+{% block body %}
+    <table border="" align="center">
+        <col width=100px>
+        <col width=200px>
+        <col width=100px>
+        <tr>
+            <td>
+                昵称
+            </td>
+            <td>
+                {{ user.username }}
+            </td>
+            <td rowspan="6">
+                <img src="/media/{{ user.img }}" width=100px, height=100px>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                性别
+            </td>
+            <td>
+                {% if user.sex %}
+                    男
+                {% else %}
+                    女
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                年龄
+            </td>
+            <td>
+                {{ user.age }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                邮箱
+            </td>
+            <td>
+                {{ user.email }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                创建时间
+            </td>
+            <td>
+                {{ user.created_time }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                个人介绍
+            </td>
+            <td>
+                {{ user.info }}
+            </td>
+        </tr>
+    </table>
+    <p>头像替换</p>
+    <form action="/users/user_center" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <input type="file" name="myfile">
+        </p>
+        <p>
+            <input type="submit" value="上传">
+        </p>
+    </form>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}我的笔记{% endblock %}
+{% block mystyle %}
+
+{% endblock %}
+{% block head %}
+    <p align="right">
+        {{ user.username }}
+        <a href="/users/quit">退出登录</a>
+    </p>
+    <p align="right">
+        <a href="/users/user_center">个人中心</a>
+    </p>
+{% endblock %}
+{% block body %}
+    <p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table border="" align="center">
+                <col width=100px>
+                <col width=600px>
+                <tr>
+                    <td>
+                        标题
+                    </td>
+                    <td>
+                        <input type="text" name="title" placeholder="请输入标题">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        分类
+                    </td>
+                    <td>
+                        <input type="text" name="classify" placeholder="请输入分类">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        内容
+                    </td>
+                    <td>
+                        <textarea cols="100" rows="10" name="content"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2>
+                        <input type="submit" name="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </p>
+    <h3>我的笔记</h3>
+    <p align="center">
+        <a href="/note/download_csv">下载全部笔记</a>
+        <a href="/note/download_page">下载当前页笔记</a>
+    </p>
+    {% for note in c_page %}
+        <p>
+            {{ note.title }}&nbsp;&nbsp;{{ note.classify }}
+            <a href="/note/delete/{{ note.id }}">删除</a>
+        </p>
+        <p>{{ note.content }}</p>
+    {% endfor %}
+    {% if c_page.has_previous %}
+        <a href="/note/center?page={{ c_page.previous_page_number }}">上一页</a>
+    {% endif %}
+    {% for page in paginator.page_range %}
+        {% if page == c_page.number %}
+            {{ page }}
+        {% else %}
+            <a href="/note/center?page={{ page }}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if c_page.has_next %}
+        <a href="/note/center?page={{ c_page.next_page_number }}">下一页</a>
+    {% endif %}
+
+{% endblock %}

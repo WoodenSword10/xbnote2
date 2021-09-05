@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block body %}
+    {% if request.session.username %}
+        <p>
+            欢迎 {{ request.session.username }}
+            <a href="/users/quit">退出登录</a>
+            <a href="/users/user_center">用户中心</a>
+        </p>
+        <p>
+            <a href="/note/center">进入我的笔记</a>
+        </p>
+    {% else %}
+        {% if request.COOKIES.username %}
+             <p>
+                欢迎 {{ request.COOKIES.username }}
+                <a href="/users/quit">退出登录</a>
+                <a href="/users/user_center">用户中心</a>
+            </p>
+            <p>
+                <a href="/note/center">进入我的笔记</a>
+            </p>
+        {% else %}
+            <p>
+                <a href="/users/register">注册</a>
+            </p>
+            <p>
+                <a href="/users/login">登录</a>
+            </p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
